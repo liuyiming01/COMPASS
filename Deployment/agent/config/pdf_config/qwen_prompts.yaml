@@ -1,0 +1,114 @@
+# config/prompts.yaml
+prompts:
+    filter_pb_papers: |
+        <|im_start|>system
+        You are a helpful assistant.<|im_end|>
+        <|im_start|>user
+        The following is the title and abstract of a scientific paper.
+
+        Title: {title}
+        Abstract: {abstract}
+
+        Determine whether the paper focuses on research about lead (Pb) in the context of geosciences, marine sciences or earth sciences. Relevant topics include the distribution, trace lead, behavior, or impact of metallic lead in terrestrial (include rivers, lakes, etc.), marine, atmospheric, or interface systems. Exclude studies primarily focused on chemical synthesis, laboratory experiments, or industrial applications of lead. Also exclude papers that only discuss lead isotopes for dating purposes without addressing environmental processes.
+
+        Provide a brief 1-2 sentence analysis, followed by the answer enclosed in special markers <answer> and </answer>. The answer should be either <answer>Yes</answer> or <answer>No</answer>.<|im_end|>
+        <|im_start|>assistant\n
+
+    classify_pb_papers: |
+        <|im_start|>system
+        You are a helpful assistant.<|im_end|>
+        <|im_start|>user
+        The following is the title and abstract of a scientific paper.
+
+        Title: {title}
+        Abstract: {abstract}
+
+        Classify this paper into one of these categories related to lead (Pb) research:
+        (1) Terrestrial: Studies focusing on lead in soil, rocks, rivers, lakes, wetlands, groundwater, glaciers, permafrost or terrestrial ecosystems;
+        (2) Marine: Studies about lead in seawater, oceans, marine sediments, or marine organisms;
+        (3) Atmospheric: Research on lead in air, precipitation, atmospheric deposition, or aerosols;
+        (4) Interface Regions: Studies focusing on lead in land-sea, land-air, or sea-air interfaces, including:
+            - Estuaries, lagoons, coastal zones, and sea-air exchange processes.
+        (5) Other: Studies that don't primarily fit the above categories.
+
+        Provide your response in this format:
+        1. A brief 1-2 sentence analysis.
+        2. The answer enclosed in special markers <answer> and </answer>. The answer should be one of: <answer>Terrestrial</answer>, <answer>Marine</answer>, <answer>Atmospheric</answer>, <answer>Interface Regions</answer>, or <answer>Other</answer>.
+        3. A self-assessment of your confidence in the classification, where:
+        - High: The paper clearly fits the chosen category based on strong evidence in the title and abstract.
+        - Medium: The paper likely fits the chosen category, but some ambiguity or incomplete information exists.
+        - Low: The paper may fit the chosen category, but the evidence is weak or unclear.
+        <|im_end|>
+        <|im_start|>assistant\n
+
+    extract_pb_tables: |
+        <|im_start|>system
+        You are a helpful assistant.<|im_end|>
+        <|im_start|>user
+        The following is the title, abstract and tables of a scientific paper.
+
+        Title: {title}
+        Abstract: {abstract}
+
+        Tables:
+        {tables}
+
+        Analyze the paper tables and determine if any tables contain seawater lead (Pb) data (e.g., Pb concentration, Pb isotopes, Pb isotope ratio, etc.).
+
+        **Note:**
+        - Tables are provided in HTML format. Pay attention to column headers, row labels, and data cells.
+
+        Provide your response in the following format:
+        1. One brief sentence analysis for each table.
+        2. The answer enclosed in special markers <answer> and </answer>. The answer should be either <answer>Yes</answer> or <answer>No</answer>.
+        3. If any, the index of the table(s) containing seawater lead data enclosed in special markers <table> and </table>; otherwise, None.
+
+        Example Response:
+        Table 1 ... 
+        Table 2 ... 
+        Table 3 ...
+        <answer>Yes</answer>
+        <table>1, 3</table>
+        <|im_end|>
+        <|im_start|>assistant\n
+    
+    reorganize_tables_data: |
+        <|im_start|>system
+        You are a helpful assistant.<|im_end|>
+        <|im_start|>user
+        The following is the tables of a scientific paper.
+
+        Tables: 
+        {tables}
+
+        Please extract and reorganize the tabular data to create a standardized table with exactly four columns:
+        - "Longitude [degrees_east]"
+        - "Latitude [degrees_north]"
+        - "DEPTH [m]"
+        - Pb-related columns [unit] (include all Pb-related columns with original name and unit)
+
+        Requirements:
+        1. Standardize geographic coordinates:
+        - Longitude: Convert East (E) to positive values, West (W) to negative values (e.g., 30°E → 30, 110°W → -110)
+        - Latitude: Convert North (N) to positive values, South (S) to negative values (e.g., 30°N → 30, 45°S → -45)
+        
+        2. If geographic coordinates are not in the original tables, locate this information from:
+        - Table titles or captions
+        - Table footnotes
+        - Text descriptions
+        - Other tables in the document
+
+        3. Data quality requirements:
+        - Include only complete data points with valid location information
+        - Exclude any Pb columns that cannot be accurately associated with coordinates and depth
+        - For ranges of values, use the starting/minimum value only
+
+        4. Output format:
+        - Present the final table in CSV format
+        - If multiple Pb-related columns exist (different types, depths, etc.), include all with clear labeling
+        - If any, include all columns related to Pb, using the original column names and original units
+
+        5. If no tables or no Pb data can be found, respond with "None"
+
+        Enclose your final CSV table within <answer> and </answer> tags.<|im_end|>
+        <|im_start|>assistant\n

@@ -1,0 +1,248 @@
+# config/ablation_prompts.yaml
+prompts:
+    wo_knowledge_node:
+        Pb_Related_Paper: |
+            You are an expert in geochemistry and lead research. Your task is to determine whether a scientific paper is related to geochemical lead research.
+
+            Please analyze the following paper information and determine if it is related to lead research in geochemical environments (including terrestrial, marine, atmospheric, etc.).
+
+            Paper Information:
+            Title: {title}
+            Abstract: {abstract}
+
+            Categories:
+            1. YES: The paper is related to geochemical lead research (terrestrial, marine, atmospheric, etc.)
+            2. NO: The paper is not related to geochemical lead research
+
+            Instructions:
+            1. Read the title and abstract carefully
+            2. Determine if the paper focuses on lead research in any geochemical environment
+            3. Consider research areas including but not limited to: marine lead, atmospheric lead, terrestrial lead, lead isotopes, lead contamination, lead cycling
+            4. Your response must follow this EXACT format: <answer>category_name</answer>
+            5. Replace "category_name" with either: YES or NO
+            6. Do not include any explanation or additional text outside the tags
+
+            Example response format:
+            <answer>YES</answer>
+
+            Your response:
+
+        PaperClassification: |
+            You are an expert in scientific literature classification. Your task is to classify research papers based on their content and focus area.
+
+            Please analyze the following paper information and classify it into ONE of the 4 categories below:
+
+            Categories:
+            1. Marine_Pb: Papers about lead research in marine environments.
+            2. Atmospheric_Pb: Papers about lead research in atmospheric environments.
+            3. Terrestrial_Pb: Papers about lead research in terrestrial environments.
+
+            Paper Information:
+            Title: {title}
+            Abstract: {abstract}
+
+            Instructions:
+            1. Read the title and abstract carefully
+            2. Choose the MOST appropriate category from the 3 options above
+            3. Your response must follow this EXACT format: <answer>category_name</answer>
+            4. Replace "category_name" with one of: Marine_Pb, Atmospheric_Pb, Terrestrial_Pb
+            5. Do not include any explanation or additional text outside the tags
+
+            Example response format:
+            <answer>Marine_Pb</answer>
+
+            Your response:
+        
+        Pb_Related_Table: |
+            Your task is to determine whether a scientific table is related to lead research in geochemical environments.
+
+            Please analyze the following paper information and table content, then determine if the table contains lead-related data.
+
+            Paper Information:
+            Title: {title}
+            Abstract: {abstract}
+            Table Content:
+            {table_content}
+
+            Categories:
+            1. YES: The table contains lead-related data
+            2. NO: The table does not contain lead-related data
+
+            Instructions:
+            1. Carefully analyze the title, abstract, and table content
+            2. Determine if the table focuses on lead research in any geochemical environment
+            3. Your response must follow this EXACT format: <answer>category_name</answer>
+            4. Replace "category_name" with either: YES or NO
+            5. Do not include any explanation or additional text outside the tags
+
+            Example response format:
+            <answer>YES</answer>
+
+            Your response:
+
+        TableClassification: |
+            You are an expert in marine geochemistry and lead isotope analysis. Your task is to classify scientific tables based on their content and context.
+
+            Please analyze the following paper information and table content, then classify the table into ONE of the 4 categories below:
+
+            Categories:
+            1. Pb_CONC: Tables containing lead concentration data.
+            2. 210Pb_CONC: Tables containing lead-210 concentration data.
+            3. Pb_RATIO: Tables containing lead isotope ratio data.
+            4. Other: Tables containing other types of data.
+
+            Paper Information:
+            Title: {title}
+            Abstract: {abstract}
+            Table Content:
+            {table_content}
+
+            Instructions:
+            1. Carefully analyze the title, abstract, and table content
+            2. Focus on what type of lead-related data the table contains
+            3. Choose the MOST appropriate category from the 4 options above
+            4. Your response must follow this EXACT format: <answer>category_name</answer>
+            5. Replace "category_name" with one of: Pb_CONC, 210Pb_CONC, Pb_RATIO, Other
+            6. Do not include any explanation or additional text outside the tags
+
+            Example response format:
+            <answer>Pb_CONC</answer>
+
+            Your response:
+
+        E2EDataExtraction: |
+            The following is the tables of a scientific paper.
+
+            Tables: 
+            {tables}
+
+            Please extract and reorganize the tabular data to create a standardized table with exactly four columns:
+            - "Longitude [degrees_east]"
+            - "Latitude [degrees_north]"
+            - "DEPTH [m]"
+            - Pb-related columns [unit] (include all Pb-related columns with original name and unit)
+
+            Requirements:
+            1. Standardize geographic coordinates:
+            - Longitude: Convert East (E) to positive values, West (W) to negative values
+            - Latitude: Convert North (N) to positive values, South (S) to negative values
+            
+            2. If geographic coordinates are not in the original tables, locate this information from:
+            - Table titles or captions
+            - Table footnotes
+            - Text descriptions
+            - Other tables in the document
+
+            3. Output format:
+            - Present the final table in CSV format
+
+            4. If no tables or no Pb data can be found, respond with "None"
+
+            Enclose your final CSV table within <answer> and </answer> tags.
+
+    wo_tree_struct:
+        PaperClassification: |
+            You are an expert in scientific literature classification. Your task is to classify research papers based on their content and focus area.
+
+            Please analyze the following paper information and classify it into ONE of the 4 categories below:
+
+            Categories:
+            1. Marine_Pb: Papers about lead research in marine environments, including seawater lead concentrations, marine sediment lead analysis, oceanic lead transport, marine lead isotopes, and lead contamination in marine ecosystems.
+
+            2. Atmospheric_Pb: Papers about lead research in atmospheric environments, including atmospheric lead concentrations, aerosol lead analysis, atmospheric lead transport and deposition, lead emissions, and air pollution studies.
+
+            3. Terrestrial_Pb: Papers about lead research in terrestrial environments, including soil lead contamination, groundwater lead analysis, terrestrial lead cycling, lead in terrestrial ecosystems, and land-based lead pollution sources.
+
+            4. Other: Papers about other types of research.
+
+            Paper Information:
+            Title: {title}
+            Abstract: {abstract}
+
+            Instructions:
+            1. Read the title and abstract carefully
+            2. Choose the MOST appropriate category from the 4 options above
+            3. Your response must follow this EXACT format: <answer>category_name</answer>
+            4. Replace "category_name" with one of: Marine_Pb, Atmospheric_Pb, Terrestrial_Pb, Other
+            5. Do not include any explanation or additional text outside the tags
+
+            Example response format:
+            <answer>Marine_Pb</answer>
+
+            Your response:
+
+        TableClassification: |
+            You are an expert in marine geochemistry and lead isotope analysis. Your task is to classify scientific tables based on their content and context.
+
+            Please analyze the following paper information and table content, then classify the table into ONE of the 4 categories below:
+
+            Categories:
+            1. Pb_CONC: Tables containing lead concentration data in seawater, including total lead concentrations in dissolved and particulate phases, lead content measurements in seawater samples with units such as pmol/kg, ng/L, μg/L, or pM, etc.
+
+            2. 210Pb_CONC: Tables containing lead-210 concentration data in seawater, including 210Pb activity measurements in dissolved and particulate phases, with units such as dpm/100L, mBq/L, or Bq/m³, etc. often used for studying oceanic processes and particle scavenging.
+
+            3. Pb_RATIO: Tables containing lead isotope ratio data in dissolved seawater, including isotopic signatures such as 206Pb/204Pb, 206Pb/207Pb, 207Pb/204Pb, 208Pb/204Pb, 208Pb/206Pb, and 208Pb/207Pb ratios for source identification and oceanic lead provenance studies.
+   
+            4. Other: Tables containing other types of data not specifically focused on seawater lead concentrations, seawater 210Pb concentrations, or dissolved seawater lead isotope ratios.
+
+            Paper Information:
+            Title: {title}
+            Abstract: {abstract}
+            Table Content:
+            {table_content}
+
+            Instructions:
+            1. Carefully analyze the title, abstract, and table content
+            2. Focus on what type of lead-related data the table contains
+            3. Choose the MOST appropriate category from the 4 options above
+            4. Your response must follow this EXACT format: <answer>category_name</answer>
+            5. Replace "category_name" with one of: Pb_CONC, 210Pb_CONC, Pb_RATIO, Other
+            6. Do not include any explanation or additional text outside the tags
+
+            Example response format:
+            <answer>Pb_CONC</answer>
+
+            Your response:
+
+        E2EDataExtraction: |
+            The following are tables from a scientific paper. Your task is to extract marine Pb data from these tables.
+
+            Paper Information:
+            Title: {title}
+            Abstract: {abstract}
+            Tables: 
+            {tables}
+
+            Please extract and reorganize the tabular data to create a standardized table with exactly four columns:
+            - "Longitude [degrees_east]"
+            - "Latitude [degrees_north]"
+            - "DEPTH [m]"
+            - Pb-related columns [unit] (include all Pb-related columns with original name and unit)
+
+            Requirements:
+            1. Standardize geographic coordinates:
+            - Longitude: Convert East (E) to positive values, West (W) to negative values (e.g., 30°E → 30, 110°W → -110)
+            - Latitude: Convert North (N) to positive values, South (S) to negative values (e.g., 30°N → 30, 45°S → -45)
+            
+            
+            2. If geographic coordinates are not in the original tables, locate this information from:
+            - Table titles or captions
+            - Table footnotes
+            - Text descriptions
+            - Other tables in the document
+
+            3. Data quality requirements:
+            - Include only complete data points with valid location information
+            - Exclude any Pb columns that cannot be accurately associated with coordinates and depth
+            - For ranges of values, use the starting/minimum value only
+
+            4. Output format:
+            - Present the final table in CSV format
+            - If multiple Pb-related columns exist (different types, depths, etc.), include all with clear labeling
+            - If any, include all columns related to Pb, using the original column names and original units
+
+            5. If no tables or no Pb data can be found, respond with "None"
+
+            Enclose your final CSV table within <answer> and </answer> tags.
+            Your response:
+

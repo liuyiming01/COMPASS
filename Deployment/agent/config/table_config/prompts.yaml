@@ -1,0 +1,141 @@
+# config/prompts.yaml
+column_mapping:
+    pdf_column_mapping: |
+        <|im_start|>system
+        You are a helpful assistant.<|im_end|>
+        <|im_start|>user
+        Analyze the provided oceanographic data column metadata and match it to standardized parameters. Respond **only** with the exact parameter name from the list below or 'None':
+        Note: All standard Pb-related parameters refer to seawater dissolved data, excluding particulate and sediments.
+        
+        Standard Parameters:
+        - Longitude [degrees_east]
+        - Latitude [degrees_north]
+        - DEPTH [m]
+        - Pb_CONC [pmol/kg]
+        - Pb_210_CONC [mBq/kg]
+        - Pb_206_204
+        - Pb_206_207
+        - Pb_208_206
+        - Pb_207_204
+        - Pb_208_207
+        - Pb_208_204
+
+        Examples:
+        Pb -> Pb_CONC [pmol/kg]
+        DPb -> Pb_CONC [pmol/kg]
+        210Pb -> Pb_210_CONC [mBq/kg]
+        210pb Particulate (dpm/100 kg water) -> Pb_210_CONC [mBq/kg]
+        210pbg 226Ra (%) -> None
+
+        Column Metadata:
+        - Name: {name}
+
+        Response Format:
+        1. A brief 1-2 sentence analysis.
+        2. The answer enclosed in special markers <answer> and </answer>. The answer should be like <answer>Matched parameter name or None</answer><|im_end|>
+        <|im_start|>assistant\n
+    
+    dataset_column_mapping: |
+        <|im_start|>system
+        You are a helpful assistant.<|im_end|>
+        <|im_start|>user
+        Analyze the provided oceanographic data column metadata and match it to standardized parameters. Respond **only** with the exact parameter name from the list below or 'None':
+        Note: All standard Pb-related parameters refer to seawater dissolution data, excluding particles and sediments.
+
+        Standard Parameters:
+        - Longitude [degrees_east]
+        - Latitude [degrees_north]
+        - DEPTH [m]
+        - Pb_CONC [pmol/kg]
+        - Pb_210_CONC [mBq/kg]
+        - Pb_206_204
+        - Pb_206_207
+        - Pb_208_206
+        - Pb_207_204
+        - Pb_208_207
+        - Pb_208_204
+
+        Column Metadata:
+        - Name: {name}
+        - Description: {description}
+        - Unit: {unit}
+
+        Response Format:
+        1. A brief 1-2 sentence analysis.
+        2. The answer enclosed in special markers <answer> and </answer>. The answer should be like <answer>Matched parameter name or None</answer><|im_end|>
+        <|im_start|>assistant\n
+
+unit_conversion: |
+    <|im_start|>system
+    You are a helpful assistant.<|im_end|>
+    <|im_start|>user
+    Please write a Python function to convert a numerical value from the specified original unit to the standard unit for seawater lead element data. The function should handle straightforward unit conversions and return None if conversion isn't possible due to incompatible units.
+
+    Function Requirements:
+    - Input: A float representing the value in original_unit.
+    - Output: A float representing the converted value in standard_unit, or `None` if conversion isn't possible.
+
+    Instructions:
+    1. Provide conversion logic if units can be directly converted using a mathematical factor.
+    2. Return None if units have incompatible dimensions or no conversion factor exists.
+    3. Consider standard unit prefixes (nano, micro, milli, etc.).
+    4. When necessary, account for the density of seawater to convert between mass and volume units (assume a standard seawater density of 1.025 kg/L).
+    5. Use Lead's molar mass (207.2 g/mol) for conversions involving moles.
+    6. Handle unit representations with exponents (e.g., "m³" as cubic meters, "100L-1" as per 100 liters).
+    7. Enclose the function within <func> and </func> blocks.
+
+    Examples:
+
+    Example 1:
+    - Original Unit: Bq/kg
+    - Standard Unit: mBq/kg
+    - Conversion Logic: Multiply by 1000 to convert Bq to mBq.
+    <func>
+    def convert_lead_unit(value):
+        return value * 1000
+    </func>
+
+    Example 2:
+    - Original Unit: nmol/kg
+    - Standard Unit: pmol/kg
+    - Conversion Logic: Multiply by 1000 to convert nmol to pmol.
+    <func>
+    def convert_lead_unit(value):
+        return value * 1000
+    </func>
+
+    Example 3:
+    - Original Unit: dpm/gram
+    - Standard Unit: mBq/kg
+    - Conversion Logic: gram→kg: (×1000); dpm→Bq: (/60); Bq→mBq: (×1000)
+    <func>
+    def convert_lead_unit(value):
+        return value * 1000 / 60 * 1000
+    </func>
+
+    Example 4:
+    - Original Unit: 210Pb dpm 100L-1
+    - Standard Unit: mBq/kg
+    - Conversion Logic: 100L seawater = 102.5 kg; dpm→Bq: (/60); Bq→mBq: (×1000)
+    <func>
+    def convert_lead_unit(value):
+        density_kg_per_100L = 100 * 1.025
+        return value / density_kg_per_100L / 60 * 1000
+    </func>
+
+    Example 5:
+    - Original Unit: ng/m³
+    - Standard Unit: pmol/kg
+    - Conversion Logic: m³→kg using density (÷1025 kg/m³), ng→g (×1e-9), g→mol (÷207.2), mol→pmol (×1e12).
+    <func>
+    def convert_lead_unit(value):
+        density_kg_per_m3 = 1025  # 1.025 kg/L * 1000 L/m³
+        return value / density_kg_per_m3 * 1e-9 / 207.2 * 1e12
+    </func>
+
+    ---
+
+    Task:
+    - Original Unit: {original_unit}
+    - Standard Unit: {standard_unit}<|im_end|>
+    <|im_start|>assistant\n- Conversion Logic:

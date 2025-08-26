@@ -1,0 +1,18 @@
+# config/parameters.yaml
+standard_columns:
+  - Longitude [degrees_east]
+  - Latitude [degrees_north]
+  - DEPTH [m]
+  - Pb_CONC [pmol/kg]
+  - Pb_210_CONC [mBq/kg]
+  - Pb_206_204
+  - Pb_206_207
+  - Pb_208_206
+  - Pb_207_204
+  - Pb_208_207
+  - Pb_208_204
+
+mandatory_columns:
+  - Longitude [degrees_east]
+  - Latitude [degrees_north]
+  - DEPTH [m]
