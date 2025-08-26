@@ -4,7 +4,7 @@
 
 [![Website](https://img.shields.io/badge/Website-Visit%20Here-blue)](https://jingwei.acemap.info/lead)
 [![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-red)]()
-[![License](https://img.shields.io/badge/License-MIT-green)]()
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)]()
 
 </div>
 
