@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Website](https://img.shields.io/badge/Website-Visit%20Here-blue)](https://jingwei.acemap.info/lead)
+[![Website](https://img.shields.io/badge/Website-Visit%20Here-blue)](https://jingwei.acemap.cn/lead)
 [![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-red)]()
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)]()
 
@@ -24,7 +24,7 @@ In collaboration with marine scientists, COMPASS has been successfully deployed 
 
 - ✅ **100+ relevant papers** identified from over 230,000 open-access academic papers
 - ✅ **3,751 new Pb records** extracted and integrated
-- ✅ **Interactive visualization platform** launched at [https://jingwei.acemap.info/lead](https://jingwei.acemap.info/lead)
+- ✅ **Interactive visualization platform** launched at [https://jingwei.acemap.cn/lead](https://jingwei.acemap.cn/lead)
 - ✅ **New data insights** for regions including the East China Sea and Southern Ocean
 
 ## Getting Started
@@ -69,4 +69,4 @@ Due to copyright protection, we provide only DOI numbers for test papers and res
 
 Visit our interactive visualization platform to explore the integrated marine lead data:
 
-🌐 **[https://jingwei.acemap.info/lead](https://jingwei.acemap.info/lead)**
+🌐 **[https://jingwei.acemap.cn/lead](https://jingwei.acemap.cn/lead)**
