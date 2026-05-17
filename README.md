@@ -1,4 +1,4 @@
-# COMPASS: Scientific LLM Agent for Fine-grained Data Integration in Academic Papers
+# COMPASS: Navigating Global Marine Lead Data Integration through Expert-Guided LLM Agent
 
 <div align="center">
 
