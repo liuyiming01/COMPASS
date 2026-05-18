@@ -1,4 +1,4 @@
-# COMPASS: Navigating Global Marine Lead Data Integration through Expert-Guided LLM Agent
+# Compass: Navigating Global Marine Lead Data Integration through Expert-Guided LLM Agent
 
 <div align="center">
 
