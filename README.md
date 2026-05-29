@@ -3,7 +3,7 @@
 <div align="center">
 
 [![Website](https://img.shields.io/badge/Website-Visit%20Here-blue)](https://jingwei.acemap.cn/lead)
-[![Paper](https://img.shields.io/badge/Paper-Coming%20Soon-red)]()
+[![Paper](https://img.shields.io/badge/arXiv-2605.29966-b31b1b.svg)](https://arxiv.org/pdf/2605.29966)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)]()
 
 </div>
