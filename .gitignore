@@ -176,4 +176,4 @@ cython_debug/
 # custom .gitignore
 Deployment/outputs
 Deployment/test.slurm
-Deployment/slurm-2267.out
+Deployment/slurm-2267.out.DS_Store
